@@ -1,0 +1,15 @@
+include: "rules/reads2bwa.smk"
+include: "rules/bams2vcf.smk"
+include: "rules/vcf2fisher.smk"
+
+rule all:
+    input:
+        # reads2bwa
+        expand("results/bwa_mapping/{sample}.flagstats.txt", sample = config["samples"]),
+
+        # bams2vcf
+        expand("results/concat_and_norm/{grp}.norm.vcf.gz", grp = config["groups"]),
+
+        # vcf2fisher
+        expand("results/fisher_table/{grp}/var_table.csv", grp = config["groups"])
+
