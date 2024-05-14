@@ -1,6 +1,6 @@
 
-ref_genome: "../index/os/rap-db/results/genome/os.rap-db.genome.fa"
-gtf: "../index/os/rap-db/results/gtf/os.rap-db.make.gtf"
+ref_genome: "/home/panyq/Tools/index-scripts/os/rap-db/results/genome/os.rap-db.genome.fa"
+gtf: "/home/panyq/Tools/index-scripts/os/rap-db/results/gtf/os.rap-db.make.gtf"
 
 bcftools_filter_expression: "QUAL<=100 | INFO/DP > 500 | INFO/DP < 10"
 
@@ -8,5 +8,5 @@ vep_fields: "IMPACT,Consequence,Gene,EXON,INTRON,CDS_position,Protein_position,A
 
 threads:
   vep: 4
-  fisher_table: 20
+  fisher_table: 10
 

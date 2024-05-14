@@ -2,12 +2,12 @@
 # author: panyq357
 # date: 2023-10-30
 
-ref_genome: "../index/os/rap-db/results/genome/os.rap-db.genome.fa"
+ref_genome: "/home/panyq/Tools/index-scripts/os/rap-db/results/genome/os.rap-db.genome.fa"
 
 chromosomes: ["chr01","chr02","chr03","chr04","chr05","chr06","chr07","chr08","chr09","chr10","chr11","chr12"]
 
 groups:
-  NIPxLPBG:
-  - results/bwa_mapping/ES.bam
-  - results/bwa_mapping/ET.bam
+  TT2-TT23:
+  - results/bwa_mapping/TT2.bam
+  - results/bwa_mapping/TT23.bam
 

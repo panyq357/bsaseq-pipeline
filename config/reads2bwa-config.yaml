@@ -2,15 +2,15 @@
 # author: panyq357
 # date: 2023-11-06
 
-bwa_index_prefix: ../index/os/rap-db/results/genome/os.rap-db.genome.fa
+bwa_index_prefix: /home/panyq/Tools/index-scripts/os/rap-db/results/genome/os.rap-db.genome.fa
 
 samples:
-  ES:
-    R1: ../rawdata/SRR834927_1.fastq.gz
-    R2: ../rawdata/SRR834927_2.fastq.gz
-  ET:
-    R1: ../rawdata/SRR834931_1.fastq.gz
-    R2: ../rawdata/SRR834931_2.fastq.gz
+  TT2:
+    R1: /mnt/e/LYHLabData/PYQ/TT2/TT2_L1_391.R1.clean.fastq.gz
+    R2: /mnt/e/LYHLabData/PYQ/TT2/TT2_L1_391.R2.clean.fastq.gz
+  TT23:
+    R1: /mnt/e/LYHLabData/PYQ/TT2/TT23_L1_392.R1.clean.fastq.gz
+    R2: /mnt/e/LYHLabData/PYQ/TT2/TT23_L1_392.R2.clean.fastq.gz
 
 threads:  # threads setting for rules
   fastp_pe: 4
