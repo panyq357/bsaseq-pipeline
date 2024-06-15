@@ -35,7 +35,7 @@ main <- function() {
     sample_num <- length(grep("\\.REF", names(ad_table)))
     if (sample_num != 2) {
         readr::write_csv(var_table, file.path(config$outdir, "var_table.csv"))
-        exit()
+        return()
     }
 
     var_table$FISHER <- get_ad_fisher(ad_table, mc.cores=config$mc.cores)
