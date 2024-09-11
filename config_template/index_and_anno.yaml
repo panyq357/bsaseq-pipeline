@@ -1,0 +1,9 @@
+
+bwa_index_prefix: "/home/panyq/Tools/index-scripts/os/rap-db/results/genome/os.rap-db.genome.fa"
+
+# VEP compatible GTF for variants annotation.
+gtf: "/home/panyq/Tools/index-scripts/os/rap-db/results/gtf/os.rap-db.make.gtf"
+
+# Chromosomes for variants calling (split jobs by chromosomes).
+chromosomes: ["chr01","chr02","chr03","chr04","chr05","chr06","chr07","chr08","chr09","chr10","chr11","chr12"]
+

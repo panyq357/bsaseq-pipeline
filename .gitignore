@@ -1,0 +1,7 @@
+**/config/*
+**/resources/*
+**/results/*
+**/logs/*
+**/.RData
+**/.snakemake/*
+**/STDOUT_warnings.txt

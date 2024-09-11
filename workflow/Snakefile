@@ -1,0 +1,13 @@
+configfile: "config/sample_info.yaml"
+configfile: "config/index_and_anno.yaml"
+configfile: "config/software_setting.yaml"
+
+include: "rules/concat_fastq.smk"
+include: "rules/fastp.smk"
+include: "rules/bwa_mapping.smk"
+include: "rules/var_calling.smk"
+include: "rules/var_anno.smk"
+
+rule all:
+    input:
+        expand("results/fisher_table/{grp}/var_table.csv", grp = config["groups"])
