@@ -1,7 +1,19 @@
+from pathlib import Path
+
+
+def get_bam_list(w):
+    bam_list = []
+    for x in config["groups"][w.group]:
+        if Path(x).exists():
+            bam_list.append(x)
+        else:
+            bam_list.append(f"results/bwa_mapping/{x}.bam")
+    return bam_list
+
+
 rule call_by_chr:
     input:
-        bam_list = lambda w: config["groups"][w.group],
-        bai_list = lambda w: [f"{bam}.bai" for bam in config["groups"][w.group]],
+        bam_list = get_bam_list,
         ref_genome = config["bwa_index_prefix"]
     output:
         chr_vcf = temp("resources/call_by_chr/{group}.{chr}.vcf.gz")

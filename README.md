@@ -2,9 +2,16 @@ A pipeline for BSA-seq analysis.
 
 ## How to run this pipeline
 
-Rename `config_template` to `config`, then filling config files in this directory.
+First, run these.
 
-Then, run this.
+```bash
+cp workflow/Snakefile_template workflow/Snakefile
+cp -r config_template config
+```
+
+Then filling config files in `config` directory.
+
+Finally, run this.
 
 ```bash
 snakemake --cores 20 --resources io=100
