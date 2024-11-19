@@ -1,9 +1,11 @@
 
-bwa_index_prefix: "/home/panyq/Tools/index-scripts/os/rap-db/results/genome/os.rap-db.genome.fa"
+bwa_index_prefix: "/home/panyq/Tools/index-scripts/os/ricerc/results/genome/ZH11.genome.fa"
 
 # VEP compatible GTF for variants annotation.
-gtf: "/home/panyq/Tools/index-scripts/os/rap-db/results/gtf/os.rap-db.make.gtf"
+gtf: "/home/panyq/Tools/index-scripts/os/ricerc/results/gtf/ZH11.make.gtf"
 
 # Chromosomes for variants calling (split jobs by chromosomes).
-chromosomes: ["chr01","chr02","chr03","chr04","chr05","chr06","chr07","chr08","chr09","chr10","chr11","chr12"]
+chromosomes: ["Chr1","Chr2","Chr3","Chr4","Chr5","Chr6","Chr7","Chr8","Chr9","Chr10","Chr11","Chr12"]
 
+id_converter:
+  rap: "/home/panyq/Tools/index-scripts/os/ricerc/results/id_converter/ZH11.to.rap-db.best-hit.tsv"

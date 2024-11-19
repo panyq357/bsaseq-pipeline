@@ -10,4 +10,4 @@ include: "rules/var_anno.smk"
 
 rule all:
     input:
-        expand("results/fisher_table/{grp}/var_table.csv", grp = config["groups"])
+        expand("results/fisher_table/{grp}/var_table.replace_homolog_id_to_rap.csv", grp = config["groups"])

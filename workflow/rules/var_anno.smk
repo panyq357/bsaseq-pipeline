@@ -74,3 +74,13 @@ rule fisher_table:
     script:
         "../scripts/fisher_table.R"
 
+
+rule replace_homolog_id:
+    input:
+        id_converter = lambda w: config["id_converter"][w.to],
+        var_table = "results/fisher_table/{group}/var_table.csv"
+    output:
+        "results/fisher_table/{group}/var_table.replace_homolog_id_to_{to}.csv"
+    script:
+        "../scripts/replace_homolog_id.R"
+
