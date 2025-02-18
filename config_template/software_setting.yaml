@@ -1,8 +1,11 @@
-bcftools_filter_expression: "QUAL <= 100 | INFO/DP > 500 | INFO/DP < 10"
+skip_fastp: false
+
+bcftools:
+  filter_expression: "QUAL <= 100 | INFO/DP > 500 | INFO/DP < 10"
 
 vep_fields: "IMPACT,Consequence,Gene,EXON,INTRON,CDS_position,Protein_position,Amino_acids,Codons,DISTANCE"
 
 samtools:
-  sort_threads: 20
-  sort_mem_per_thread: "1G"
-
+  sort:
+    threads: 20
+    mem_per_thread: "1G"

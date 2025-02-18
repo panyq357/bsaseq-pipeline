@@ -18,12 +18,12 @@ rule sort_gtf:
 
 rule vep_anno:
     input:
-        vcf = "results/var_calling/{grp}.filter.vcf.gz",
+        vcf = "results/var_calling/{grp}.vcf.gz",
         genome = config["genome"],
         gtf = "resources/sorted.gtf.gz"
     output:
-        vcf = "results/var_calling/{grp}.filter.anno.vcf.gz",
-        summary = "results/var_calling/{grp}.filter.anno.html"
+        vcf = "results/var_calling/{grp}.anno.vcf.gz",
+        summary = "results/var_calling/{grp}.anno.html"
     log:
         "logs/vep_anno/{grp}.log"
     threads:

@@ -14,7 +14,7 @@ rule filter_vcf:
     output:
         "{prefix}.filter.vcf.gz"
     params:
-        filter_expression = config["bcftools_filter_expression"]
+        filter_expression = config["bcftools"]["filter_expression"]
     shell:
         '''
         bcftools view -e {params.filter_expression:q} {input} | bgzip > {output}

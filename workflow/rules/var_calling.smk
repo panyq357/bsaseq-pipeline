@@ -1,20 +1,28 @@
 from pathlib import Path
 
 
-def get_bam_list(w):
-    bam_list = []
+def get_cram_list(w):
+    cram_list = []
     for x in config["groups"][w.group]:
         if Path(x).exists():
-            bam_list.append(x)
+            cram_list.append(x)
         else:
-            bam_list.append(f"results/read_mapping/{x}.bam")
-    return bam_list
+            cram_list.append(f"results/read_mapping/{x}.cram")
+    return cram_list
+
+
+def get_call_io(w):
+    io = len(get_cram_list(w)) * 10
+    if io < 100:
+        return io
+    else:
+        return 100
 
 
 rule bcftools_call_by_chr:
     input:
-        bam_list = get_bam_list,
-        bai_list = lambda w: [x + ".bai" for x in get_bam_list(w)],
+        cram_list = get_cram_list,
+        crai_list = lambda w: [x + ".crai" for x in get_cram_list(w)],
         genome = config["genome"]
     output:
         temp("resources/call_by_chr/{group}.{chr}.vcf.gz")
@@ -22,9 +30,11 @@ rule bcftools_call_by_chr:
         "logs/bcftools/call_by_chr/{group}.{chr}.log"
     priority:
         10
+    resources:
+        io = get_call_io
     shell:
         '''
-        bcftools mpileup -O u -a AD,DP -r {wildcards.chr} -f {input.genome} {input.bam_list} 2> {log} \
+        bcftools mpileup -O u -a AD,DP -r {wildcards.chr} -f {input.genome} {input.cram_list} 2> {log} \
         | bcftools call -v -m -O z -a GQ -o {output} 2>> {log}
         '''
 

@@ -21,6 +21,11 @@ rule cat_pe:
                 shell("ln -s $(realpath {input.r1}) {output.r1_cat} 2> {log}")
             else:
                 shell("gzip -c {input.r1} > {output.r1_cat} 2> {log}")
+        elif len(input.r1) == 1:  # Only one file.
+            if input.r1[0][-3:] == ".gz":
+                shell("ln -s $(realpath {input.r1[0]}) {output.r1_cat} 2> {log}")
+            else:
+                shell("gzip -c {input.r1[0]} > {output.r1_cat} 2> {log}")
         else:  # Multiple files.
             for f in input.r1:
                 if f[-3:] == ".gz":
@@ -32,6 +37,11 @@ rule cat_pe:
                 shell("ln -s $(realpath {input.r2}) {output.r2_cat} 2> {log}")
             else:
                 shell("gzip -c {input.r2} > {output.r2_cat} 2> {log}")
+        elif len(input.r2) == 1:  # Only one file.
+            if input.r2[0][-3:] == ".gz":
+                shell("ln -s $(realpath {input.r2[0]}) {output.r2_cat} 2> {log}")
+            else:
+                shell("gzip -c {input.r2[0]} > {output.r2_cat} 2> {log}")
         else:
             for f in input.r2:
                 if f[-3:] == ".gz":
@@ -53,11 +63,15 @@ rule cat_se:
                 shell("ln -s $(realpath {input.r1}) {output.r1_cat} 2> {log}")
             else:
                 shell("gzip -c {input.r1} > {output.r1_cat} 2> {log}")
+        elif len(input.r1) == 1:  # Only one file.
+            if input.r1[0][-3:] == ".gz":
+                shell("ln -s $(realpath {input.r1[0]}) {output.r1_cat} 2> {log}")
+            else:
+                shell("gzip -c {input.r1[0]} > {output.r1_cat} 2> {log}")
         else:  # Multiple files.
             for f in input.r1:
                 if f[-3:] == ".gz":
                     shell("cat {f} >> {output.r1_cat} 2> {log}")
                 else:
                     shell("gzip -c {f} >> {output.r1_cat} 2> {log}")
-
 

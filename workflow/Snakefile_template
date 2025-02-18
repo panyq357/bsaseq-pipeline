@@ -4,10 +4,13 @@ configfile: "config/software_setting.yaml"
 
 include: "rules/concat_fastq.smk"
 include: "rules/fastp.smk"
-include: "rules/bwa_mapping.smk"
+include: "rules/read_mapping.smk"
+include: "rules/samtools.smk"
 include: "rules/var_calling.smk"
-include: "rules/var_anno.smk"
+include: "rules/vcf_processing.smk"
+include: "rules/vep_anno.smk"
+include: "rules/table_and_plot.smk"
 
 rule all:
     input:
-        expand("results/fisher_table/{grp}/var_table.replace_homolog_id_to_rap.csv", grp = config["groups"])
+        expand("results/var_calling/{grp}.vcf.gz", grp=config["groups"])

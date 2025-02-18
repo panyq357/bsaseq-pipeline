@@ -4,11 +4,11 @@ ruleorder: bwa_mapping_pe > bwa_mapping_se
 
 rule bwa_mapping_pe:
     input:
-        r1 = rules.fastp_pe.output.r1_fastp,
-        r2 = rules.fastp_pe.output.r2_fastp,
+        r1 = [rules.cat_pe.output.r1_cat if config["skip_fastp"] else rules.fastp_pe.output.r1_fastp],
+        r2 = [rules.cat_pe.output.r2_cat if config["skip_fastp"] else rules.fastp_pe.output.r2_fastp],
         bwa_index = [config["genome"] + suffix for suffix in [".amb", ".ann", ".bwt", ".pac", ".sa"]]
     output:
-        bam = "results/read_mapping/{sample_id}.bam"
+        cram = "results/read_mapping/{sample_id}.cram"
     params:
         index_prefix = config["genome"],
         read_group = "@RG\\tID:{sample_id}\\tSM:{sample_id}",
@@ -26,16 +26,16 @@ rule bwa_mapping_pe:
         | samtools fixmate -u -m - - 2>> {log} \
         | samtools sort -u -@ {params.sort_threads} -m {params.sort_mem_per_thread} 2>> {log} \
         | samtools markdup -u - - 2>> {log} \
-        | samtools view -b -h -@{threads} -o {output.bam} 2>> {log}
+        | samtools view -C -T {params.index_prefix} -h -@{threads} -o {output.cram} 2>> {log}
         '''
 
 
 rule bwa_mapping_se:
     input:
-        r1 = rules.fastp_pe.output.r1_fastp,
+        r1 = [rules.cat_pe.output.r1_cat if config["skip_fastp"] else rules.fastp_pe.output.r1_fastp],
         bwa_index = [config["genome"] + suffix for suffix in [".amb", ".ann", ".bwt", ".pac", ".sa"]]
     output:
-        bam = "results/read_mapping/{sample_id}.bam"
+        cram = "results/read_mapping/{sample_id}.cram"
     params:
         index_prefix = config["genome"],
         read_group = "@RG\\tID:{sample_id}\\tSM:{sample_id}",
@@ -53,6 +53,6 @@ rule bwa_mapping_se:
         | samtools fixmate -u -m - - 2>> {log} \
         | samtools sort -u -@ {params.sort_threads} -m {params.sort_mem_per_thread} 2>> {log} \
         | samtools markdup -u - - 2>> {log} \
-        | samtools view -b -h -@{threads} -o {output.bam} 2>> {log}
+        | samtools view -b -h -@{threads} -o {output.cram} 2>> {log}
         '''
 
