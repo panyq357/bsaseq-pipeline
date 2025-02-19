@@ -6,8 +6,6 @@ samples:
   WT:
     R1: "path/to/WT.R1.fq.gz"
     R2: "path/to/WT.R2.fq.gz"
-  some_other_sample:
-    R1: "path/to/some_other_sample.single-ended.fq.gz"
   M:
     R1:
       - "path/to/M.R1.part1.fq.gz"
@@ -15,13 +13,18 @@ samples:
     R2:
       - "path/to/M.R2.part1.fq.gz"
       - "path/to/M.R2.part2.fq.gz"
+  SingleEndSample:
+    R1: "path/to/some_other_sample.single-ended.fq.gz"
 
 
 # Group of BAM for variants calling.
+# For sample in above, specify ONLY name of that sample.
+# For BAM outside this workflow, specify the path to that BAM file.
 # If is two bulk BSA-seq, place wildtype in 1st place, then the mutant.
 
 groups:
   WT-M:
-    - results/bwa_mapping/WT.bam
-    - results/bwa_mapping/M.bam
+    - WT
+    - M
+    - path/to/sample_in_another_project.bam
 
