@@ -1,5 +1,5 @@
 
-bwa_index_prefix: "/home/panyq/Tools/index-scripts/os/ricerc/results/genome/ZH11.genome.fa"
+genome: "/home/panyq/Tools/index-scripts/os/ricerc/results/genome/ZH11.genome.fa"
 
 # VEP compatible GTF for variants annotation.
 gtf: "/home/panyq/Tools/index-scripts/os/ricerc/results/gtf/ZH11.make.gtf"

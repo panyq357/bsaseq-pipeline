@@ -7,10 +7,11 @@ include: "rules/fastp.smk"
 include: "rules/read_mapping.smk"
 include: "rules/samtools.smk"
 include: "rules/var_calling.smk"
-include: "rules/vcf_processing.smk"
 include: "rules/vep_anno.smk"
+include: "rules/vcf_processing.smk"
 include: "rules/table_and_plot.smk"
 
 rule all:
     input:
-        expand("results/var_calling/{grp}.vcf.gz", grp=config["groups"])
+        expand("results/var_calling/{grp}.anno.vcf.gz", grp=config["groups"])
+

@@ -4,28 +4,26 @@ rule sort_gtf:
         gtf = config["gtf"]
     output:
         sorted_gtf = "resources/sorted.gtf.gz"
-    log:
-        "logs/sort_gtf.log"
     shell:
         '''
         (zcat < {input.gtf} || cat < {input.gtf}) \
         | grep -v '^#' \
         | sort -k1,1 -k4,4n -k5,5n -t$'\\t' \
-        | bgzip -c > {output.sorted_gtf} 2> {log}
-        tabix -p gff {output.sorted_gtf} 2>> {log}
+        | bgzip -c > {output.sorted_gtf}
+        tabix -p gff {output.sorted_gtf}
         '''
 
 
 rule vep_anno:
     input:
-        vcf = "results/var_calling/{grp}.vcf.gz",
+        vcf = "{prefix}.vcf.gz",
         genome = config["genome"],
         gtf = "resources/sorted.gtf.gz"
     output:
-        vcf = "results/var_calling/{grp}.anno.vcf.gz",
-        summary = "results/var_calling/{grp}.anno.html"
+        vcf = "{prefix}.anno.vcf.gz",
+        summary = "{prefix}.anno.html"
     log:
-        "logs/vep_anno/{grp}.log"
+        "{prefix}.anno.log"
     threads:
         4
     params:

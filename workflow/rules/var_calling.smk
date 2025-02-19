@@ -27,7 +27,7 @@ rule bcftools_call_by_chr:
     output:
         temp("resources/call_by_chr/{group}.{chr}.vcf.gz")
     log:
-        "logs/bcftools/call_by_chr/{group}.{chr}.log"
+        temp("resources/call_by_chr/{group}.{chr}.log")
     priority:
         10
     resources:
@@ -47,7 +47,7 @@ rule bcftools_concat:
     wildcard_constraints:
         grp = "[^.]+"
     log:
-        "logs/bcftools/concat/{grp}.log"
+        "results/var_calling/{grp}.log",
     priority:
         100
     shell:
