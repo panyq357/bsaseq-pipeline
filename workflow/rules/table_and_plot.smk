@@ -35,16 +35,6 @@ rule delta_allele_frequence_point:
         "../scripts/DAF_point.R"
 
 
-# rule replace_homolog_id:
-#     input:
-#         id_converter = lambda w: config["id_converter"][w.to],
-#         table = "{prefix}.tsv.gz"
-#     output:
-#         "{prefix}.replace_homolog_id_to_{to}.tsv.gz"
-#     script:
-#         "../scripts/replace_homolog_id.R"
-# 
-# 
 # rule fisher_table:
 #     input:
 #         "results/table/{grp}.tsv.gz"
