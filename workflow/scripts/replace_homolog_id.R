@@ -29,4 +29,4 @@ for (i in seq_along(out_split)) {
 
 vcf$INFO <- sapply(out_split, paste, collapse = "$")
 
-readr::write_tsv(vcf, snakemake@output[[1]])
+readr::write_tsv(vcf, snakemake@output[[1]], col_names=FALSE)  # Add header after using tabix.

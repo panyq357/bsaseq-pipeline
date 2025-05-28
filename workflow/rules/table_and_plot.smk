@@ -10,7 +10,7 @@ rule VariantsToTable:
         gatk VariantsToTable \
             -R {input.genome} \
             -V {input.vcf} \
-            -F CHROM -F POS -F REF -F ALT -F QUAL -F CSQ \
+            -F CHROM -F POS -F REF -F ALT -F QUAL \
             -GF AD -GF DP -GF GQ -GF PL \
             -O /dev/stdout >> {output}
         '''
@@ -25,27 +25,34 @@ rule gzip_table:
         "gzip -c {input} > {output}"
 
 
+rule make_var_table:
+    input:
+        anno = "{prefix}.anno.replace_homolog_id_to_rap.vcf.gz",
+        vcf= "{prefix}.vcf.gz"
+    output:
+        "{prefix}.var_table.tsv"
+    script:
+        "../scripts/make_var_table.R"
+
+
 rule delta_allele_frequence_point:
     input:
-        "{prefix}.tsv.gz"
+        "{prefix}.var_table.tsv"
     output:
-        csv_gz = "{prefix}.DAF-point.target-{target}.csv.gz",
-        png = "{prefix}.DAF-point.target-{target}.png"
+        "{prefix}.DAF-point.target-{target}.png"
     script:
         "../scripts/DAF_point.R"
 
 
-# rule fisher_table:
-#     input:
-#         "results/table/{grp}.tsv.gz"
-#     output:
-#         outdir = directory("results/fisher_table/{grp}"),
-#         var_table = "results/fisher_table/{grp}/var_table.csv"
-#     threads:
-#         10
-#     params:
-#         vep_fields = config["vep_fields"]
-#     script:
-#         "../scripts/fisher_table.R"
-# 
-# 
+rule pybsaseq_like:
+    input:
+        "{prefix}.var_table.tsv"
+    output:
+        svg = "{prefix}.pybsaseq_like.target-{target}.svg",
+        csv = "{prefix}.pybsaseq_like.target-{target}.csv"
+    params:
+        window_length=2000000,
+        window_step=10000,
+        fisher_th=0.05
+    script:
+        "../scripts/pybsaseq_like.R"

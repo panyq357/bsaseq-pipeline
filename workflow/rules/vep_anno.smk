@@ -67,6 +67,7 @@ rule replace_homolog_id:
 rule bgzip_and_add_header:
     input:
         anno = "results/var_calling/{grp}.anno.vcf.gz",
+        anno_tbi = "results/var_calling/{grp}.anno.vcf.gz.tbi",
         replace = "results/var_calling/{grp}.anno.replace_homolog_id_to_{to}.vcf.not_bgzip.gz",
     output:
         vcf = "results/var_calling/{grp}.anno.replace_homolog_id_to_{to}.vcf.gz"
