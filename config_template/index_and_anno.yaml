@@ -7,8 +7,9 @@ gtf: "/home/panyq/Tools/index-scripts/os/ricerc/results/gtf/ZH11.make.gtf"
 # Chromosomes for variants calling (split jobs by chromosomes).
 chromosomes: ["Chr1","Chr2","Chr3","Chr4","Chr5","Chr6","Chr7","Chr8","Chr9","Chr10","Chr11","Chr12"]
 
-id_converter:
-  rap: "/home/panyq/Tools/index-scripts/os/ricerc/results/id_converter/ZH11.to.rap-db.best-hit.tsv"
+# If not using id_converter, leave it as a empty string.
+id_converter: "/home/panyq/Tools/index-scripts/os/ricerc/results/id_converter/ZH11.to.rap-db.best-hit.tsv"
+
 anno:
   file: "/home/panyq/Tools/index-scripts/os/rap-db/rawdata/IRGSP-1.0_representative_annotation_2024-07-12.tsv.gz"
   id_col: "Locus_ID"

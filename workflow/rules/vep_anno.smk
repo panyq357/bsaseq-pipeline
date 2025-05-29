@@ -20,10 +20,10 @@ rule vep_anno:
         genome = config["genome"],
         gtf = "resources/sorted.gtf.gz"
     output:
-        vcf = "{prefix}.anno.vcf.gz",
-        summary = "{prefix}.anno.html"
+        vcf = "{prefix}.vep_anno.vcf.gz",
+        summary = "{prefix}.vep_anno.html"
     log:
-        "{prefix}.anno.log"
+        "{prefix}.vep_anno.log"
     threads:
         4
     params:
@@ -50,27 +50,28 @@ rule vep_anno:
         '''
 
 
-rule replace_homolog_id:
+rule add_gene_description_anno:
     input:
-        id_converter = lambda w: config["id_converter"][w.to],
-        vcf = "results/var_calling/{grp}.anno.vcf.gz",
+        vcf = "results/var_calling/{grp}.vep_anno.vcf.gz",
         anno_file = config["anno"]["file"],
     output:
-        vcf = temp("results/var_calling/{grp}.anno.replace_homolog_id_to_{to}.vcf.not_bgzip.gz"),
+        vcf = temp("results/var_calling/{grp}.anno.vcf.not_bgzip.gz"),
     params:
+        id_converter = lambda w: config["id_converter"],
+        vep_fields = config["vep_fields"],
         anno_id_col = config["anno"]["id_col"],
         anno_info_col = config["anno"]["info_col"]
     script:
-        "../scripts/replace_homolog_id.R"
+        "../scripts/add_gene_description_anno.R"
 
 
 rule bgzip_and_add_header:
     input:
-        anno = "results/var_calling/{grp}.anno.vcf.gz",
-        anno_tbi = "results/var_calling/{grp}.anno.vcf.gz.tbi",
-        replace = "results/var_calling/{grp}.anno.replace_homolog_id_to_{to}.vcf.not_bgzip.gz",
+        vep_anno = "results/var_calling/{grp}.vep_anno.vcf.gz",
+        vep_anno_tbi = "results/var_calling/{grp}.vep_anno.vcf.gz.tbi",
+        replace = "results/var_calling/{grp}.anno.vcf.not_bgzip.gz",
     output:
-        vcf = "results/var_calling/{grp}.anno.replace_homolog_id_to_{to}.vcf.gz"
+        vcf = "results/var_calling/{grp}.anno.vcf.gz"
     shell:
-        "(tabix -H {input.anno}; gzip -dc {input.replace}) | bgzip > {output.vcf}"
+        "(tabix -H {input.vep_anno}; gzip -dc {input.replace}) | bgzip > {output.vcf}"
 
