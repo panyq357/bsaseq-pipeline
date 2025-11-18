@@ -13,4 +13,4 @@ include: "rules/table_and_plot.smk"
 
 rule all:
     input:
-        expand("results/var_calling/{grp}.filter.anno.vcf.gz.tbi", grp=config["groups"])
+        expand("results/var_calling/{grp}.filter.vep_anno.add_gene_description.vcf.gz.tbi", grp=config["groups"])

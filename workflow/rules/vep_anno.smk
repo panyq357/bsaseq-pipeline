@@ -50,12 +50,12 @@ rule vep_anno:
         '''
 
 
-rule add_gene_description_anno:
+rule add_gene_description:
     input:
-        vcf = "results/var_calling/{grp}.vep_anno.vcf.gz",
+        vcf = "{prefix}.vep_anno.vcf.gz",
         anno_file = config["anno"]["file"],
     output:
-        vcf = temp("results/var_calling/{grp}.anno.vcf.not_bgzip.gz"),
+        vcf = temp("{prefix}.vep_anno.add_gene_description.vcf.not_bgzip.gz"),
     params:
         id_converter = lambda w: config["id_converter"],
         vep_fields = config["vep_fields"],
@@ -67,11 +67,11 @@ rule add_gene_description_anno:
 
 rule bgzip_and_add_header:
     input:
-        vep_anno = "results/var_calling/{grp}.vep_anno.vcf.gz",
-        vep_anno_tbi = "results/var_calling/{grp}.vep_anno.vcf.gz.tbi",
-        replace = "results/var_calling/{grp}.anno.vcf.not_bgzip.gz",
+        vep_anno = "{prefix}.vep_anno.vcf.gz",
+        vep_anno_tbi = "{prefix}.vep_anno.vcf.gz.tbi",
+        replace = "{prefix}.vep_anno.add_gene_description.vcf.not_bgzip.gz",
     output:
-        vcf = "results/var_calling/{grp}.anno.vcf.gz"
+        vcf = "{prefix}.vep_anno.add_gene_description.vcf.gz"
     shell:
         "(tabix -H {input.vep_anno}; gzip -dc {input.replace}) | bgzip > {output.vcf}"
 

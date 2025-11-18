@@ -1,11 +1,13 @@
-if (is.null(snakemake@input$id_converter)) {
+id_converter <- snakemake@params$id_converter
+
+if (is.null(id_converter)) {
   cat("Not using id_converter\n")
-  id_converter = NULL
 } else if (!file.exists(id_converter)) {
   cat("Not using id_converter\n")
-  id_converter = NULL
+  id_converter <- NULL
 } else {
-  id_converter <- readr::read_tsv(snakemake@input$id_converter, col_names = c("From", "To")) |> with(data = _, setNames(To, From))
+  cat("Using id_converter:", id_converter)
+  id_converter <- readr::read_tsv(id_converter, col_names = c("From", "To")) |> with(data = _, setNames(To, From))
 }
 
 vcf <- readr::read_tsv(snakemake@input$vcf, comment = "##")
