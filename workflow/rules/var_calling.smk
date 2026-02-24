@@ -12,7 +12,7 @@ def get_cram_list(w):
 
 
 def get_call_io(w):
-    io = len(get_cram_list(w)) * 10
+    io = len(get_cram_list(w))
     if io < 100:
         return io
     else:

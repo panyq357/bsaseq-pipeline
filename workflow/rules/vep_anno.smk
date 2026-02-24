@@ -50,28 +50,28 @@ rule vep_anno:
         '''
 
 
-rule add_gene_description:
-    input:
-        vcf = "{prefix}.vep_anno.vcf.gz",
-        anno_file = config["anno"]["file"],
-    output:
-        vcf = temp("{prefix}.vep_anno.add_gene_description.vcf.not_bgzip.gz"),
-    params:
-        id_converter = lambda w: config["id_converter"],
-        vep_fields = config["vep_fields"],
-        anno_id_col = config["anno"]["id_col"],
-        anno_info_col = config["anno"]["info_col"]
-    script:
-        "../scripts/add_gene_description_anno.R"
-
-
-rule bgzip_and_add_header:
-    input:
-        vep_anno = "{prefix}.vep_anno.vcf.gz",
-        vep_anno_tbi = "{prefix}.vep_anno.vcf.gz.tbi",
-        replace = "{prefix}.vep_anno.add_gene_description.vcf.not_bgzip.gz",
-    output:
-        vcf = "{prefix}.vep_anno.add_gene_description.vcf.gz"
-    shell:
-        "(tabix -H {input.vep_anno}; gzip -dc {input.replace}) | bgzip > {output.vcf}"
-
+# rule add_gene_description:
+#     input:
+#         vcf = "{prefix}.vep_anno.vcf.gz",
+#         anno_file = config["anno"]["file"],
+#     output:
+#         vcf = temp("{prefix}.vep_anno.add_gene_description.vcf.not_bgzip.gz"),
+#     params:
+#         id_converter = lambda w: config["id_converter"],
+#         vep_fields = config["vep_fields"],
+#         anno_id_col = config["anno"]["id_col"],
+#         anno_info_col = config["anno"]["info_col"]
+#     script:
+#         "../scripts/add_gene_description_anno.R"
+# 
+# 
+# rule bgzip_and_add_header:
+#     input:
+#         vep_anno = "{prefix}.vep_anno.vcf.gz",
+#         vep_anno_tbi = "{prefix}.vep_anno.vcf.gz.tbi",
+#         replace = "{prefix}.vep_anno.add_gene_description.vcf.not_bgzip.gz",
+#     output:
+#         vcf = "{prefix}.vep_anno.add_gene_description.vcf.gz"
+#     shell:
+#         "(tabix -H {input.vep_anno}; gzip -dc {input.replace}) | bgzip > {output.vcf}"
+# 

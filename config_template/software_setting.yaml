@@ -1,7 +1,10 @@
-skip_fastp: false
+skip_fastp: true
 
 bcftools:
   filter_expression: "QUAL <= 100 | INFO/DP > 500 | INFO/DP < 10"
+
+filter_variants:
+  R_code: "sample_dp >= 2 && sample_snp_index > 0.8 && sum(all_snp_index > 0.8) <= 3 && sum(all_snp_index < 0.2) >= 7"
 
 vep_fields: "IMPACT,Consequence,Gene,Codons,Amino_acids,DISTANCE"
 
